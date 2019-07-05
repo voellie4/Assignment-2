@@ -1,0 +1,26 @@
+public class Solution {
+    public string LongestWord(string[] words) {
+        string answer = "";
+        var wordSet = new HashSet<string>();
+        //add word to word set
+        foreach (var word in words) {
+            wordSet.Add(word);
+        }
+        foreach (var word in wordSet) {
+            //if there is a longer word or equal length word but smaller lexicographical order
+            if (word.Length>answer.Length || (word.Length==answer.Length && word.CompareTo(answer)<0)) {
+                bool isWord = true;
+                for (int i = 1; i<=word.Length; i++) {
+                    //check if substring of word is in wordset, increase lenth of substring each time. if not, skip
+                    if(!wordSet.Contains(word.Substring(0,i))) {
+                        isWord = false;
+                        break;
+                    }
+                }
+                //set word to answer if there is new legit word
+                if(isWord) answer = word;
+            }
+        }
+        return answer;
+    }
+}
