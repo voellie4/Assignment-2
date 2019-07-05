@@ -1,0 +1,26 @@
+public class Solution {
+    public bool IsHappy(int n) {
+        int sum;
+        HashSet<int> sums = new HashSet<int>();
+        while (true) {
+            //step 1 - reset sum and calculate sum
+            sum = 0;
+            while(n!=0) {
+                sum+= (n%10)*(n%10);
+                n=n/10;
+            }
+            Console.WriteLine(sum);
+            //step 2 - if sum = 1, return true, find sum in hashset, not found - add sum then set n to sum, found - return false.
+            if (sum==1) {
+                return true;
+            }
+            if(sums.Contains(sum)){
+                return false;
+            }
+            else {
+                sums.Add(sum);
+                n = sum;
+            }
+        }      
+    }
+}
