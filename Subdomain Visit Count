@@ -1,0 +1,30 @@
+public class Solution {
+    public IList<string> SubdomainVisits(string[] cpdomains) {
+        var result = new List<string>();
+        var domainCnt = new Dictionary<string,int>();
+        //split each domain by space
+        foreach (var item in cpdomains) {
+            string[] temp = item.Split(" ");
+            int cnt = Int32.Parse(temp[0]);     //count of domain
+            string[] words = temp[1].Split(".");  //split 2nd part into words by .
+            string cur = "";                    //subdomain
+            for (int i = words.Length-1; i >= 0; i--) {
+                //last element = 1 domain, else form domain by appending word to front and append .
+                if(i==words.Length-1) 
+                    cur = words[i];
+                else 
+                    cur = words[i] + "." + cur;
+                //search domain in dictionary, if found update count else add to dict
+                if(domainCnt.ContainsKey(cur)) 
+                    domainCnt[cur]+=cnt;
+                else 
+                    domainCnt.Add(cur,cnt);
+            }
+        }
+        //add strings to result list. string format [count domain] or [Value Key]
+        foreach (KeyValuePair<string,int> kvp in domainCnt) {
+            result.Add(kvp.Value.ToString() + " " + kvp.Key);
+        }
+        return result;
+    }
+}
