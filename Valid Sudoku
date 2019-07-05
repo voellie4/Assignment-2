@@ -1,0 +1,39 @@
+public class Solution {
+    public bool IsValidSudoku(char[][] board) {
+        bool valid = true;
+        int rowSize = 9;
+        int colSize = 9;
+        //validate row
+        for (int r=0; r<rowSize; r++) {
+            HashSet<char> validRow = new HashSet<char>();
+            for (int c = 0; c<colSize; c++) {
+                if(board[r][c] == '.') continue;
+                if(validRow.Contains(board[r][c])) valid = valid && false;
+                else validRow.Add(board[r][c]);
+            }
+        }
+        //validate column
+        for (int c=0; c<colSize; c++) {
+            HashSet<char> validCol = new HashSet<char>();
+            for (int r = 0; r<rowSize; r++) {
+                if(board[r][c] == '.') continue;
+                if(validCol.Contains(board[r][c])) valid = valid && false;
+                else validCol.Add(board[r][c]);
+            }
+        }
+        //validate box
+        for (int i=0; i<rowSize; i=i+3) {
+            for (int j=0; j<colSize; j=j+3) {
+                HashSet<char> validBox = new HashSet<char>();
+                for (int r=i; r<i+3; r++){
+                    for (int c=j; c<j+3; c++) {
+                        if(board[r][c] == '.') continue;
+                        if(validBox.Contains(board[r][c])) valid = valid && false;
+                        else validBox.Add(board[r][c]);
+                    }
+                }    
+            }
+        }
+        return valid;
+    }
+}
