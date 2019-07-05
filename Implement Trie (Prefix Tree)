@@ -1,0 +1,52 @@
+public class Trie {
+
+    TrieNode root;
+    
+    /** Initialize your data structure here. */
+    public Trie() 
+    {
+        root = new TrieNode();
+    }
+    
+    /** Inserts a word into the trie. */
+    public void Insert(string word) 
+    {
+        GetEndNode(word, true);
+    }
+    
+    /** Returns if the word is in the trie. */
+    public bool Search(string word) 
+    {
+        TrieNode move = GetEndNode(word, false);
+        return move != null && move.isEndOfWord;
+    }
+    
+    /** Returns if there is any word in the trie that starts with the given prefix. */
+    public bool StartsWith(string prefix) 
+    {
+        TrieNode move = GetEndNode(prefix, false);
+        return move != null;  
+    }
+    
+    public TrieNode GetEndNode(string word, bool insert)
+    {
+        TrieNode move = root;
+        int level = 0;
+        while (move != null && level < word.Length)
+        {
+            int index = word[level] - 'a';
+            if (insert && move.children[index] == null) move.children[index] = new TrieNode();
+            move = move.children[index];
+            level++;
+        }
+        
+        if (insert) move.isEndOfWord = true;
+        return move;
+    }
+}
+
+public class TrieNode
+{
+    public bool isEndOfWord;
+    public TrieNode[] children = new TrieNode[26];
+}
