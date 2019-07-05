@@ -1,0 +1,29 @@
+public class Solution {
+    public int[] Intersection(int[] nums1, int[] nums2) {
+        HashSet<int> set1 = new HashSet<int>();
+        HashSet<int> set2 = new HashSet<int>();
+        List<int> result = new List<int>();
+        int len;
+        foreach(int i in nums1){
+            set1.Add(i);
+        }
+        foreach(int i in nums2){
+            set2.Add(i);
+        }
+        if(set1.Count>=set2.Count) {
+            foreach(int a in set2) {
+                if(set1.Contains(a)){
+                    result.Add(a);
+                }
+            }
+        }
+        else {
+            foreach(int a in set1) {
+                if(set2.Contains(a)){
+                    result.Add(a);
+                }
+            }
+        }
+        return result.ToArray();
+    }
+}
