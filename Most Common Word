@@ -1,0 +1,34 @@
+using System.Text.RegularExpressions;
+public class Solution {
+    public string MostCommonWord(string paragraph, string[] banned) {
+        //clean up string paragraph: lowercase, replace punctuation symbols !?',;. with space, then double-space with space then trim
+        //split with delimiter space
+        paragraph = paragraph.ToLower();
+        paragraph = Regex.Replace(paragraph,"[!?',;.]"," ");
+        paragraph = paragraph.Replace("  "," ").Trim();
+        string[] para = paragraph.Split(" ");
+        //define hashmap and hashset, common count and common word
+        Dictionary<string,int> count = new Dictionary<string,int>();
+        HashSet<string> countKey = new HashSet<string>();
+        int commonCount = 0;
+        string commonWord = "";
+        //add (word, count) and word to hashmap and hashset if not exist, ++count if exist
+        foreach(string word in para) {
+            if (count.ContainsKey(word)) {
+                count[word]++;
+            }
+            else {
+                count.Add(word,0);
+                countKey.Add(word);
+            }
+        }
+        //if count of word > max and word not banned, set common word
+        foreach (string k in countKey) {
+            if (count[k] >= commonCount && Array.IndexOf(banned,k)==-1) {
+                commonCount = count[k];
+                commonWord = k;
+            }
+        }
+        return commonWord;
+    }
+}
