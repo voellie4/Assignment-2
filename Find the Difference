@@ -1,0 +1,37 @@
+public class Solution {
+    public char FindTheDifference(string s, string t) {
+        Dictionary<char,int> sCount = new Dictionary<char,int>();
+        Dictionary<char,int> tCount = new Dictionary<char,int>();
+        HashSet<char> letter = new HashSet<char>();
+        //add chars in s to hashmap with their count
+        foreach(char c in s) {
+            if(sCount.ContainsKey(c)) {
+                sCount[c]++;
+            }
+            else {
+                sCount.Add(c,0);   
+            }
+        }
+        //if char in t is not in s then return the char, else add chars in t to hashmap with their count
+        foreach (char c in t) {
+            if (!sCount.ContainsKey(c))
+                return c;
+            else {
+                letter.Add(c);
+                if(tCount.ContainsKey(c)) {
+                    tCount[c]++;
+                }
+                else {
+                    tCount.Add(c,0);   
+                }
+            }
+        }
+        //check if counts of chars in t = counts of chars in s, if not return the char
+        foreach(char c in letter) {
+            if (tCount[c]>sCount[c])
+                return c;
+        }
+        
+        return '\0';
+    }
+}
