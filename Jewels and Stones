@@ -1,0 +1,17 @@
+public class Solution {
+    public int NumJewelsInStones(string J, string S) {
+        //step 1 - add element of J to hashset
+        HashSet<char> jewel = new HashSet<char>();
+        foreach (char j in J) {
+            jewel.Add(j);
+        }
+        //step 2 - check if element of S is in hashset then increment count 
+        int count = 0;
+        foreach (char s in S) {
+            if (jewel.Contains(s)) {
+                count++;
+            }
+        }
+        return count;
+    }
+}
