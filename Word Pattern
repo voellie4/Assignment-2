@@ -1,0 +1,19 @@
+public class Solution {
+    public bool WordPattern(string pattern, string str) {
+        string[] word = str.Split(" ");
+        Dictionary<string,string> dict = new Dictionary<string,string>();
+        HashSet<string> cset = new HashSet<string>();
+        if(pattern.Length!=word.Length) return false;
+        for (int i = 0; i<pattern.Length; i++) {
+            if (!dict.ContainsKey(pattern[i].ToString()) && cset.Contains(word[i]))
+                return false;
+            else if (!dict.ContainsKey(pattern[i].ToString())) {
+                dict.Add(pattern[i].ToString(),word[i]);
+                cset.Add(word[i]);
+            }
+            else if (dict[pattern[i].ToString()]!=word[i])
+                return false;
+        }
+        return true;
+    }
+}
