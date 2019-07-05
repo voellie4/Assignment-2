@@ -1,0 +1,11 @@
+public class Solution {
+    public int DistributeCandies(int[] candies) {
+        int size1 = candies.Length/2;
+        HashSet<int> numSet = new HashSet<int>();
+        foreach (int candy in candies) {
+            numSet.Add(candy);
+        }
+        if (size1<=numSet.Count) return size1;
+        else return numSet.Count;
+    }
+}
