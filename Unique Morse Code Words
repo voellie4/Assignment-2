@@ -1,0 +1,16 @@
+public class Solution {
+    public int UniqueMorseRepresentations(string[] words) {
+        string[] morse = {".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--","-.","---",".--.","--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--.."};
+        HashSet<string> morseWords = new HashSet<string>();
+        foreach(string word in words) {
+            string temp = "";
+            //step 1 - convert each word in string words to morse code
+            foreach(char w in word) {
+                temp += morse[(int)w-97];
+            }
+            //step 2 - push these codes to hashset then return its length
+            morseWords.Add(temp);
+        }
+        return morseWords.Count;
+    }
+}
